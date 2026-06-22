@@ -4,24 +4,21 @@ import { payrollAPI } from '../services/api';
 
 const PayslipModal = ({ slip, onClose }) => {
   return (
-    <div style={modalOverlay} onClick={onClose}>
-      <div onClick={(e) => e.stopPropagation()} style={{
-        background: '#fff', borderRadius: 16, padding: '2rem', width: 520, maxHeight: '90vh', overflow: 'auto',
-        boxShadow: '0 20px 60px rgba(0,0,0,0.3)',
-      }}>
+    <div className="modal-overlay" onClick={onClose}>
+      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         <div style={{ textAlign: 'center', borderBottom: '2px solid #1a237e', paddingBottom: '1rem', marginBottom: '1.5rem' }}>
           <h2 style={{ color: '#1a237e', margin: 0 }}>PAYSLIP</h2>
           <p style={{ color: '#888', fontSize: '0.8rem', margin: '0.3rem 0 0' }}>Payroll Management System</p>
         </div>
-        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1.5rem', fontSize: '0.85rem' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1.5rem', fontSize: '0.85rem', flexWrap: 'wrap', gap: '0.5rem' }}>
           <div>
-            <p><strong>Employee:</strong> {slip.employee?.firstName || 'N/A'} {slip.employee?.lastName || ''}</p>
-            <p><strong>Department:</strong> {slip.employee?.department || 'N/A'}</p>
-            <p><strong>Position:</strong> {slip.employee?.position || 'N/A'}</p>
+            <p style={{ margin: '0.2rem 0' }}><strong>Employee:</strong> {slip.employee?.firstName || 'N/A'} {slip.employee?.lastName || ''}</p>
+            <p style={{ margin: '0.2rem 0' }}><strong>Department:</strong> {slip.employee?.department || 'N/A'}</p>
+            <p style={{ margin: '0.2rem 0' }}><strong>Position:</strong> {slip.employee?.position || 'N/A'}</p>
           </div>
           <div style={{ textAlign: 'right' }}>
-            <p><strong>Period:</strong> {slip.month} {slip.year}</p>
-            <p><strong>Status:</strong> <span style={statusBadge(slip.status)}>{slip.status}</span></p>
+            <p style={{ margin: '0.2rem 0' }}><strong>Period:</strong> {slip.month} {slip.year}</p>
+            <p style={{ margin: '0.2rem 0' }}><strong>Status:</strong> <span style={statusBadge(slip.status)}>{slip.status}</span></p>
           </div>
         </div>
         <table style={{ width: '100%', borderCollapse: 'collapse', marginBottom: '1.5rem' }}>
@@ -44,7 +41,7 @@ const PayslipModal = ({ slip, onClose }) => {
             </tr>
           </tfoot>
         </table>
-        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.8rem', color: '#888', borderTop: '1px solid #eee', paddingTop: '1rem' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.8rem', color: '#888', borderTop: '1px solid #eee', paddingTop: '1rem', flexWrap: 'wrap', gap: '0.5rem' }}>
           <span>Working Days: {slip.workingDays || 0}</span>
           <span>Present Days: {slip.presentDays || 0}</span>
         </div>
@@ -52,11 +49,6 @@ const PayslipModal = ({ slip, onClose }) => {
       </div>
     </div>
   );
-};
-
-const modalOverlay = {
-  position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,0.5)',
-  display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 1000,
 };
 
 const EmployeePayslips = () => {
@@ -72,8 +64,8 @@ const EmployeePayslips = () => {
   return (
     <div style={{ padding: '2rem 0' }}>
       <h2 style={{ fontSize: '1.5rem', fontWeight: 600, marginBottom: '1.5rem' }}>My Payslips</h2>
-      <div style={{ background: '#fff', borderRadius: 12, border: '1px solid #eee', overflow: 'hidden' }}>
-        <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+      <div className="card table-wrapper" style={{ padding: 0 }}>
+        <table style={{ width: '100%', borderCollapse: 'collapse', minWidth: 500 }}>
           <thead>
             <tr style={{ background: '#fafafa' }}>
               <th style={thStyle}>Period</th><th style={thStyle}>Basic</th><th style={thStyle}>Net Salary</th><th style={thStyle}>Status</th><th style={thStyle}>Action</th>
@@ -100,8 +92,8 @@ const EmployeePayslips = () => {
   );
 };
 
-const thStyle = { padding: '0.8rem 1rem', textAlign: 'left', fontSize: '0.75rem', color: '#888', fontWeight: 600, textTransform: 'uppercase', borderBottom: '1px solid #eee' };
-const tdStyle = { padding: '0.8rem 1rem', fontSize: '0.85rem', borderBottom: '1px solid #f0f0f0' };
+const thStyle = { padding: '0.8rem 1rem', textAlign: 'left', fontSize: '0.75rem', color: '#888', fontWeight: 600, textTransform: 'uppercase', borderBottom: '1px solid #eee', whiteSpace: 'nowrap' };
+const tdStyle = { padding: '0.8rem 1rem', fontSize: '0.85rem', borderBottom: '1px solid #f0f0f0', whiteSpace: 'nowrap' };
 const statusBadge = (s) => ({
   display: 'inline-block', padding: '0.2rem 0.7rem', borderRadius: 12, fontSize: '0.75rem', fontWeight: 500,
   background: s === 'paid' ? '#e8f5e9' : s === 'processed' ? '#e3f2fd' : '#fff3e0',

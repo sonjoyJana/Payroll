@@ -4,7 +4,7 @@ import { employeeAPI } from '../services/api';
 const btnPrimary = { background: '#1a237e', color: '#fff', border: 'none', padding: '0.5rem 1rem', borderRadius: 8, cursor: 'pointer', fontWeight: 500, fontSize: '0.85rem' };
 const btnDanger = { background: '#fff', color: '#c62828', border: '1px solid #c62828', padding: '0.3rem 0.7rem', borderRadius: 6, cursor: 'pointer', fontSize: '0.8rem', fontWeight: 500 };
 const btnSuccess = { background: '#2e7d32', color: '#fff', border: 'none', padding: '0.3rem 0.7rem', borderRadius: 6, cursor: 'pointer', fontSize: '0.8rem', fontWeight: 500 };
-const inputStyle = { width: '100%', padding: '0.6rem 0.8rem', border: '1px solid #ddd', borderRadius: 8, fontSize: '0.85rem', outline: 'none', boxSizing: 'border-box' };
+const inputStyle = { width: '100%', padding: '0.6rem 0.8rem', border: '1px solid #ddd', borderRadius: 8, fontSize: '0.85rem', outline: 'none' };
 
 const EmployeePage = () => {
   const [employees, setEmployees] = useState([]);
@@ -12,7 +12,6 @@ const EmployeePage = () => {
   const [form, setForm] = useState({ employeeId: '', firstName: '', lastName: '', email: '', phone: '', department: '', position: '', salary: '', bankName: '', accountNumber: '', ifscCode: '' });
   const [search, setSearch] = useState('');
   const [msg, setMsg] = useState(null);
-  const [selected, setSelected] = useState(null);
 
   useEffect(() => { loadEmployees(); }, []);
 
@@ -65,41 +64,43 @@ const EmployeePage = () => {
         </div>
       )}
 
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
-        <h2 style={{ fontSize: '1.5rem', fontWeight: 600 }}>Employees</h2>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', flexWrap: 'wrap', gap: '0.5rem' }}>
+        <h2 style={{ fontSize: '1.5rem', fontWeight: 600, margin: 0 }}>Employees</h2>
         <button onClick={() => setShowForm(!showForm)} style={btnPrimary}>
           {showForm ? 'Cancel' : '+ Add Employee'}
         </button>
       </div>
 
       <input placeholder="Search by name, ID, email or department..." value={search} onChange={(e) => setSearch(e.target.value)}
-        style={{ ...inputStyle, maxWidth: 360, marginBottom: '1rem' }} />
+        style={{ ...inputStyle, maxWidth: 360, marginBottom: '1rem', width: '100%' }} />
 
       {showForm && (
-        <form onSubmit={handleSubmit} style={{ background: '#fff', padding: '1.5rem', borderRadius: 12, border: '1px solid #eee', marginBottom: '1.5rem', display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '1rem' }}>
-          <div><label style={labelStyle}>Employee ID</label><input name="employeeId" value={form.employeeId} onChange={handleChange} placeholder="EMP011" style={inputStyle} /></div>
-          <div><label style={labelStyle}>First Name</label><input name="firstName" value={form.firstName} onChange={handleChange} style={inputStyle} required /></div>
-          <div><label style={labelStyle}>Last Name</label><input name="lastName" value={form.lastName} onChange={handleChange} style={inputStyle} required /></div>
-          <div><label style={labelStyle}>Email</label><input name="email" type="email" value={form.email} onChange={handleChange} style={inputStyle} required /></div>
-          <div><label style={labelStyle}>Phone (10 digits)</label><input name="phone" value={form.phone} onChange={handleChange} pattern="[0-9]{10}" maxLength={10} title="Enter exactly 10 digits" style={inputStyle} required /></div>
-          <div><label style={labelStyle}>Department</label><input name="department" value={form.department} onChange={handleChange} style={inputStyle} required /></div>
-          <div><label style={labelStyle}>Position</label><input name="position" value={form.position} onChange={handleChange} style={inputStyle} required /></div>
-          <div><label style={labelStyle}>Salary</label><input name="salary" type="number" value={form.salary} onChange={handleChange} style={inputStyle} required /></div>
-          <div><label style={labelStyle}>Bank Name</label><input name="bankName" value={form.bankName} onChange={handleChange} placeholder="SBI, HDFC..." style={inputStyle} /></div>
-          <div><label style={labelStyle}>Account Number</label><input name="accountNumber" value={form.accountNumber} onChange={handleChange} placeholder="SBIN0001234" style={inputStyle} /></div>
-          <div><label style={labelStyle}>IFSC Code</label><input name="ifscCode" value={form.ifscCode} onChange={handleChange} placeholder="SBIN0000123" style={inputStyle} /></div>
-          <button type="submit" style={{ ...btnPrimary, alignSelf: 'end', background: '#2e7d32', marginTop: '1.2rem' }}>Save Employee</button>
+        <form onSubmit={handleSubmit} className="card" style={{ marginBottom: '1.5rem' }}>
+          <div className="form-grid-3">
+            <div><label style={labelStyle}>Employee ID</label><input name="employeeId" value={form.employeeId} onChange={handleChange} placeholder="EMP011" style={inputStyle} /></div>
+            <div><label style={labelStyle}>First Name</label><input name="firstName" value={form.firstName} onChange={handleChange} style={inputStyle} required /></div>
+            <div><label style={labelStyle}>Last Name</label><input name="lastName" value={form.lastName} onChange={handleChange} style={inputStyle} required /></div>
+            <div><label style={labelStyle}>Email</label><input name="email" type="email" value={form.email} onChange={handleChange} style={inputStyle} required /></div>
+            <div><label style={labelStyle}>Phone (10 digits)</label><input name="phone" value={form.phone} onChange={handleChange} pattern="[0-9]{10}" maxLength={10} title="Enter exactly 10 digits" style={inputStyle} required /></div>
+            <div><label style={labelStyle}>Department</label><input name="department" value={form.department} onChange={handleChange} style={inputStyle} required /></div>
+            <div><label style={labelStyle}>Position</label><input name="position" value={form.position} onChange={handleChange} style={inputStyle} required /></div>
+            <div><label style={labelStyle}>Salary</label><input name="salary" type="number" value={form.salary} onChange={handleChange} style={inputStyle} required /></div>
+            <div><label style={labelStyle}>Bank Name</label><input name="bankName" value={form.bankName} onChange={handleChange} placeholder="SBI, HDFC..." style={inputStyle} /></div>
+            <div><label style={labelStyle}>Account Number</label><input name="accountNumber" value={form.accountNumber} onChange={handleChange} placeholder="SBIN0001234" style={inputStyle} /></div>
+            <div><label style={labelStyle}>IFSC Code</label><input name="ifscCode" value={form.ifscCode} onChange={handleChange} placeholder="SBIN0000123" style={inputStyle} /></div>
+            <button type="submit" style={{ ...btnPrimary, alignSelf: 'end', background: '#2e7d32', marginTop: '1.2rem' }}>Save Employee</button>
+          </div>
         </form>
       )}
 
       <h3 style={{ fontSize: '1rem', fontWeight: 600, marginBottom: '0.75rem' }}>Active Employees ({activeEmps.length})</h3>
-      <div style={{ background: '#fff', borderRadius: 12, border: '1px solid #eee', overflowX: 'auto', marginBottom: '2rem' }}>
-        <table style={{ width: '100%', borderCollapse: 'collapse', minWidth: 1200 }}>
+      <div className="card table-wrapper" style={{ marginBottom: '2rem', padding: 0 }}>
+        <table style={{ width: '100%', borderCollapse: 'collapse', minWidth: 900 }}>
           <thead>
             <tr style={{ background: '#fafafa' }}>
               <th style={thStyle}>Emp ID</th>
               <th style={thStyle}>Name</th>
-              <th style={thStyle}>Department</th>
+              <th style={thStyle}>Dept</th>
               <th style={thStyle}>Position</th>
               <th style={thStyle}>Salary</th>
               <th style={thStyle}>Bank</th>
@@ -134,13 +135,13 @@ const EmployeePage = () => {
       {inactiveEmps.length > 0 && (
         <>
           <h3 style={{ fontSize: '1rem', fontWeight: 600, marginBottom: '0.75rem' }}>Inactive Employees ({inactiveEmps.length})</h3>
-          <div style={{ background: '#fff', borderRadius: 12, border: '1px solid #eee', overflowX: 'auto' }}>
-            <table style={{ width: '100%', borderCollapse: 'collapse', minWidth: 1200 }}>
+          <div className="card table-wrapper" style={{ padding: 0 }}>
+            <table style={{ width: '100%', borderCollapse: 'collapse', minWidth: 900 }}>
               <thead>
                 <tr style={{ background: '#f5f5f5' }}>
                   <th style={thStyle}>Emp ID</th>
                   <th style={thStyle}>Name</th>
-                  <th style={thStyle}>Department</th>
+                  <th style={thStyle}>Dept</th>
                   <th style={thStyle}>Position</th>
                   <th style={thStyle}>Salary</th>
                   <th style={thStyle}>Bank</th>
@@ -177,10 +178,5 @@ const EmployeePage = () => {
 const labelStyle = { display: 'block', marginBottom: '0.3rem', fontSize: '0.8rem', fontWeight: 500, color: '#555' };
 const thStyle = { padding: '0.8rem 1rem', textAlign: 'left', fontSize: '0.75rem', color: '#888', fontWeight: 600, textTransform: 'uppercase', borderBottom: '1px solid #eee', whiteSpace: 'nowrap' };
 const tdStyle = { padding: '0.8rem 1rem', fontSize: '0.85rem', borderBottom: '1px solid #f0f0f0', whiteSpace: 'nowrap' };
-const statusBadge = (s) => ({
-  display: 'inline-block', padding: '0.2rem 0.7rem', borderRadius: 12, fontSize: '0.75rem', fontWeight: 500,
-  background: s === 'active' ? '#e8f5e9' : s === 'inactive' ? '#ffebee' : '#fff3e0',
-  color: s === 'active' ? '#2e7d32' : s === 'inactive' ? '#c62828' : '#e65100',
-});
 
 export default EmployeePage;

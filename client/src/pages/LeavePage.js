@@ -3,7 +3,6 @@ import { leaveAPI } from '../services/api';
 
 const btnApprove = { background: '#2e7d32', color: '#fff', border: 'none', padding: '0.3rem 0.8rem', borderRadius: 6, cursor: 'pointer', fontWeight: 500, fontSize: '0.75rem', marginRight: '0.3rem' };
 const btnReject = { background: '#c62828', color: '#fff', border: 'none', padding: '0.3rem 0.8rem', borderRadius: 6, cursor: 'pointer', fontWeight: 500, fontSize: '0.75rem' };
-const btnDisabled = { ...btnApprove, opacity: 0.5, cursor: 'not-allowed' };
 
 const LeavePage = () => {
   const [leaves, setLeaves] = useState([]);
@@ -31,15 +30,15 @@ const LeavePage = () => {
     <div style={{ padding: '2rem 0' }}>
       <h2 style={{ fontSize: '1.5rem', fontWeight: 600, marginBottom: '1.5rem' }}>Leave Requests</h2>
       <div style={{ marginBottom: '1rem' }}>
-        <select value={filter} onChange={(e) => setFilter(e.target.value)} style={{ padding: '0.5rem 0.8rem', border: '1px solid #ddd', borderRadius: 8, fontSize: '0.85rem', outline: 'none' }}>
+        <select value={filter} onChange={(e) => setFilter(e.target.value)} style={{ padding: '0.5rem 0.8rem', border: '1px solid #ddd', borderRadius: 8, fontSize: '0.85rem', outline: 'none', width: '100%', maxWidth: 200 }}>
           <option value="">All</option>
           <option value="pending">Pending</option>
           <option value="approved">Approved</option>
           <option value="rejected">Rejected</option>
         </select>
       </div>
-      <div style={{ background: '#fff', borderRadius: 12, border: '1px solid #eee', overflow: 'hidden' }}>
-        <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+      <div className="card table-wrapper" style={{ padding: 0 }}>
+        <table style={{ width: '100%', borderCollapse: 'collapse', minWidth: 600 }}>
           <thead>
             <tr style={{ background: '#fafafa' }}>
               <th style={thStyle}>Employee</th>
@@ -62,10 +61,10 @@ const LeavePage = () => {
                 <td style={tdStyle}><span style={statusBadge(l.status)}>{l.status}</span></td>
                 <td style={tdStyle}>
                   {l.status === 'pending' ? (
-                    <>
+                    <div style={{ display: 'flex', gap: '0.3rem', flexWrap: 'wrap' }}>
                       <button onClick={() => handleAction(l._id, 'approved')} style={btnApprove}>Approve</button>
                       <button onClick={() => handleAction(l._id, 'rejected')} style={btnReject}>Reject</button>
-                    </>
+                    </div>
                   ) : (
                     <span style={{ fontSize: '0.8rem', color: '#888' }}>—</span>
                   )}
@@ -82,8 +81,8 @@ const LeavePage = () => {
   );
 };
 
-const thStyle = { padding: '0.8rem 1rem', textAlign: 'left', fontSize: '0.75rem', color: '#888', fontWeight: 600, textTransform: 'uppercase', borderBottom: '1px solid #eee' };
-const tdStyle = { padding: '0.8rem 1rem', fontSize: '0.85rem', borderBottom: '1px solid #f0f0f0' };
+const thStyle = { padding: '0.8rem 1rem', textAlign: 'left', fontSize: '0.75rem', color: '#888', fontWeight: 600, textTransform: 'uppercase', borderBottom: '1px solid #eee', whiteSpace: 'nowrap' };
+const tdStyle = { padding: '0.8rem 1rem', fontSize: '0.85rem', borderBottom: '1px solid #f0f0f0', whiteSpace: 'nowrap' };
 const statusBadge = (s) => ({
   display: 'inline-block', padding: '0.2rem 0.7rem', borderRadius: 12, fontSize: '0.75rem', fontWeight: 500,
   background: s === 'approved' ? '#e8f5e9' : s === 'rejected' ? '#ffebee' : '#fff3e0',

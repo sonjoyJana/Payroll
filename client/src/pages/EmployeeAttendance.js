@@ -14,8 +14,8 @@ const EmployeeAttendance = () => {
   return (
     <div style={{ padding: '2rem 0' }}>
       <h2 style={{ fontSize: '1.5rem', fontWeight: 600, marginBottom: '1.5rem' }}>My Attendance</h2>
-      <div style={{ background: '#fff', borderRadius: 12, border: '1px solid #eee', overflow: 'hidden' }}>
-        <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+      <div className="card table-wrapper" style={{ padding: 0 }}>
+        <table style={{ width: '100%', borderCollapse: 'collapse', minWidth: 400 }}>
           <thead>
             <tr style={{ background: '#fafafa' }}>
               <th style={thStyle}>Date</th><th style={thStyle}>In</th><th style={thStyle}>Out</th><th style={thStyle}>Status</th>
@@ -38,8 +38,8 @@ const EmployeeAttendance = () => {
   );
 };
 
-const thStyle = { padding: '0.8rem 1rem', textAlign: 'left', fontSize: '0.75rem', color: '#888', fontWeight: 600, textTransform: 'uppercase', borderBottom: '1px solid #eee' };
-const tdStyle = { padding: '0.8rem 1rem', fontSize: '0.85rem', borderBottom: '1px solid #f0f0f0' };
+const thStyle = { padding: '0.8rem 1rem', textAlign: 'left', fontSize: '0.75rem', color: '#888', fontWeight: 600, textTransform: 'uppercase', borderBottom: '1px solid #eee', whiteSpace: 'nowrap' };
+const tdStyle = { padding: '0.8rem 1rem', fontSize: '0.85rem', borderBottom: '1px solid #f0f0f0', whiteSpace: 'nowrap' };
 const statusBadge = (s) => ({
   display: 'inline-block', padding: '0.2rem 0.7rem', borderRadius: 12, fontSize: '0.75rem', fontWeight: 500,
   background: s === 'present' ? '#e8f5e9' : s === 'leave' ? '#e3f2fd' : s === 'late' ? '#fff3e0' : s === 'half-day' ? '#f3e5f5' : '#ffebee',

@@ -15,7 +15,7 @@ import EmployeeLeave from './pages/EmployeeLeave';
 import EmployeePayslips from './pages/EmployeePayslips';
 
 const AdminRoutes = () => (
-  <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 1rem' }}>
+  <div className="page-container">
     <Routes>
       <Route path="/" element={<DashboardPage />} />
       <Route path="/employees" element={<EmployeePage />} />
@@ -28,7 +28,7 @@ const AdminRoutes = () => (
 );
 
 const EmployeeRoutes = () => (
-  <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 1rem' }}>
+  <div className="page-container">
     <Routes>
       <Route path="/" element={<EmployeeDashboard />} />
       <Route path="/attendance" element={<EmployeeAttendance />} />
